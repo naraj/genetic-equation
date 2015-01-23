@@ -64,7 +64,7 @@ bool CMathOperator::bIsStatic()
 	return (cLeft->bIsStatic() && cRight->bIsStatic());
 }
 
-void CMathOperator::vMutate()
+void CMathOperator::vMutate(CRandom& cRand)
 {
 
 }

@@ -15,6 +15,6 @@ public:
 	std::string sToString() override;
 	double dEval(CAbstrEngine &) override;
 	bool bIsStatic() override;
-	void vMutate() override;
+	void vMutate(CRandom &) override;
 };
 

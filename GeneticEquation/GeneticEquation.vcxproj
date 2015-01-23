@@ -80,10 +80,12 @@
     <ClInclude Include="MathOperator.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Op.h" />
+    <ClInclude Include="Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MathOperator.cpp" />
+    <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

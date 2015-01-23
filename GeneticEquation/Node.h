@@ -2,6 +2,8 @@
 #include <string>
 #include "AbstrEngine.h"
 
+class CRandom;
+
 class CNode
 {
 public:
@@ -11,6 +13,6 @@ public:
 	virtual double dEval(CAbstrEngine &) = 0;
 	virtual std::string sToString() = 0;
 	virtual bool bIsStatic() = 0;
-	virtual void vMutate() = 0;
+	virtual void vMutate(CRandom &) = 0;
 };
 
