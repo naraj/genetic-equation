@@ -10,5 +10,7 @@ public:
 	virtual CNode* clone() const = 0;
 	virtual double dEval(CAbstrEngine &) = 0;
 	virtual std::string sToString() = 0;
+	virtual bool bIsStatic() = 0;
+	virtual void vMutate() = 0;
 };
 

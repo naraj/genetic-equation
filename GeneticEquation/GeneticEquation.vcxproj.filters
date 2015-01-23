@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Operators">
+      <UniqueIdentifier>{a79dac56-19ef-4073-b96d-2423c21c396e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -21,8 +24,19 @@
     <ClInclude Include="AbstrEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Operator.hpp">
+    <ClInclude Include="MathOperator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Op.h">
+      <Filter>Header Files\Operators</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MathOperator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
