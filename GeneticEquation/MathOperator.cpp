@@ -1,4 +1,5 @@
 #include "MathOperator.h"
+#include "MathValue.h"
 
 
 CMathOperator::CMathOperator()
@@ -81,10 +82,16 @@ void CMathOperator::vCollapse()
 	}
 	if (cLeft->bIsStatic())
 	{
-		// TODO Passing nullptr to dEval
+		double d_left = cLeft->dEval(nullptr);
+		CMathValue* cVal = new CMathValue(d_left);
+		delete cLeft;
+		cLeft = cVal;
 	}
 	if (cRight->bIsStatic())
 	{
-		// TODO Passing nullptr to dEval
+		double d_right = cRight->dEval(nullptr);
+		CMathValue* cVal = new CMathValue(d_right);
+		delete cRight;
+		cLeft = cVal;
 	}
 }
