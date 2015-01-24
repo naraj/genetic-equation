@@ -1,6 +1,6 @@
 #include "MathOperator.h"
 #include "MathValue.h"
-
+#include "Random.h"
 
 CMathOperator::CMathOperator()
 {
@@ -67,7 +67,61 @@ bool CMathOperator::bIsStatic()
 
 void CMathOperator::vMutate(const CRandom& cRand)
 {
+	// swap
+	if (cRand.bChance(100))
+	{
+		CNode* c_temp = cLeft;
+		cLeft = cRight;
+		cRight = c_temp;
+	}
+	// collapse
+	if (cRand.bChance(100))
+	{
+		vCollapse();
+	}
 
+	// delete
+	if (cRand.bChance(15))
+	{
+		if (CMathOperator* c_left = dynamic_cast<CMathOperator*>(cLeft))
+		{
+			CNode* c_grandchild = c_left->cLeft->clone();
+			delete cLeft;
+			cLeft = c_grandchild;
+		}
+	}
+	// delete
+	if (cRand.bChance(15))
+	{
+		if (CMathOperator* c_left = dynamic_cast<CMathOperator*>(cLeft))
+		{
+			CNode* c_grandchild = c_left->cRight->clone();
+			delete cLeft;
+			cLeft = c_grandchild;
+		}
+	}
+	// delete
+	if (cRand.bChance(15))
+	{
+		if (CMathOperator* c_right = dynamic_cast<CMathOperator*>(cRight))
+		{
+			CNode* c_grandchild = c_right->cLeft->clone();
+			delete cRight;
+			cRight = c_grandchild;
+		}
+	}
+	// delete
+	if (cRand.bChance(15))
+	{
+		if (CMathOperator* c_right = dynamic_cast<CMathOperator*>(cRight))
+		{
+			CNode* c_grandchild = c_right->cRight->clone();
+			delete cRight;
+			cRight = c_grandchild;
+		}
+	}
+
+	// TODO more options
 }
 
 void CMathOperator::vCollapse()
