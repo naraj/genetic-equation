@@ -11,10 +11,10 @@ public:
 	double dEval(const CAbstrEngine *) override;
 	std::string sToString() override;
 	bool bIsStatic() override;
-	void vMutate(CRandom &) override;
+	void vMutate(const CRandom &) override;
 	double dGetValue();
 
 private:
-	void vMutateValue(CRandom &);
+	void vMutateValue(const CRandom &);
 };
 

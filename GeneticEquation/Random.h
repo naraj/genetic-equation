@@ -4,13 +4,13 @@
 class CRandom
 {
 	std::random_device rd;
-	std::mt19937 gen;
+	mutable std::mt19937_64 gen;
 public:
 	CRandom();
 	~CRandom();
-	int iNextInt(int i_min, int i_max);
-	int iNextInt(int i_max);
-	bool bChance(int i_chance);
-	double dNextDouble();
+	int iNextInt(int i_min, int i_max) const;
+	int iNextInt(int i_max) const;
+	bool bChance(int i_chance) const;
+	double dNextDouble() const;
 };
 

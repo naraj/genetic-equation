@@ -36,7 +36,7 @@ bool CMathValue::bIsStatic()
 	return true;
 }
 
-void CMathValue::vMutate(CRandom& cRand)
+void CMathValue::vMutate(const CRandom& cRand)
 {
 	if (cRand.bChance(50))
 	{
@@ -53,7 +53,7 @@ double CMathValue::dGetValue()
 	return d_value;
 }
 
-void CMathValue::vMutateValue(CRandom &cRand)
+void CMathValue::vMutateValue(const CRandom &cRand)
 {
 	d_value += (cRand.dNextDouble() - 0.5) * 10;
 }
