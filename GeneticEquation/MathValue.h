@@ -8,7 +8,7 @@ public:
 	~CMathValue();
 	CMathValue* create() const override;
 	CMathValue* clone() const override;
-	double dEval(CAbstrEngine &) override;
+	double dEval(const CAbstrEngine *) override;
 	std::string sToString() override;
 	bool bIsStatic() override;
 	void vMutate(CRandom &) override;

@@ -21,7 +21,7 @@ CMathValue* CMathValue::clone() const
 	return new CMathValue(*this);
 }
 
-double CMathValue::dEval(CAbstrEngine&)
+double CMathValue::dEval(const CAbstrEngine*)
 {
 	return d_value;
 }

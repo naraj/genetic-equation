@@ -13,7 +13,7 @@ public:
 	CMathOperator* clone() const override;
 	~CMathOperator();
 	std::string sToString() override;
-	double dEval(CAbstrEngine &) override;
+	double dEval(const CAbstrEngine *) override;
 	bool bIsStatic() override;
 	void vMutate(CRandom &) override;
 	void vCollapse();

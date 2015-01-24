@@ -54,7 +54,7 @@ std::string CMathOperator::sToString()
 	return cOperator->sToString(cLeft->sToString(), cRight->sToString());
 }
 
-double CMathOperator::dEval(CAbstrEngine& cEngine)
+double CMathOperator::dEval(const CAbstrEngine* cEngine)
 {
 	return cOperator->dEval(cLeft->dEval(cEngine), cRight->dEval(cEngine));
 }
