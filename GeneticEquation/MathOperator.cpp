@@ -61,10 +61,30 @@ double CMathOperator::dEval(CAbstrEngine& cEngine)
 
 bool CMathOperator::bIsStatic()
 {
-	return (cLeft->bIsStatic() && cRight->bIsStatic());
+	return cLeft->bIsStatic() && cRight->bIsStatic();
 }
 
 void CMathOperator::vMutate(CRandom& cRand)
 {
 
+}
+
+void CMathOperator::vCollapse()
+{
+	if (CMathOperator* cOp = dynamic_cast<CMathOperator*> (cLeft))
+	{
+		cOp->vCollapse();
+	}
+	if (CMathOperator* cOp = dynamic_cast<CMathOperator*> (cRight))
+	{
+		cOp->vCollapse();
+	}
+	if (cLeft->bIsStatic())
+	{
+		// TODO Passing nullptr to dEval
+	}
+	if (cRight->bIsStatic())
+	{
+		// TODO Passing nullptr to dEval
+	}
 }

@@ -16,5 +16,6 @@ public:
 	double dEval(CAbstrEngine &) override;
 	bool bIsStatic() override;
 	void vMutate(CRandom &) override;
+	void vCollapse();
 };
 
