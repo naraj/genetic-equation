@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClInclude Include="AbstrEngine.h" />
     <ClInclude Include="MathOperator.h" />
+    <ClInclude Include="MathValue.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Op.h" />
     <ClInclude Include="Random.h" />
@@ -85,6 +86,7 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MathOperator.cpp" />
+    <ClCompile Include="MathValue.cpp" />
     <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

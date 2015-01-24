@@ -16,3 +16,21 @@ int CRandom::iNextInt(int i_min, int i_max)
 	std::uniform_int_distribution<int> dist(i_min, i_max);
 	return dist(gen);
 }
+
+int CRandom::iNextInt(int i_max)
+{
+	std::uniform_int_distribution<int> dist(0, i_max);
+	return dist(gen);
+}
+
+bool CRandom::bChance(int i_chance)
+{
+	std::uniform_int_distribution<int> dist(1, i_chance);
+	return dist(gen) == 1;
+}
+
+double CRandom::dNextDouble()
+{
+	std::uniform_real_distribution<double> dist(0, 1);
+	return dist(gen);
+}

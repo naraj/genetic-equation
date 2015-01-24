@@ -9,5 +9,8 @@ public:
 	CRandom();
 	~CRandom();
 	int iNextInt(int i_min, int i_max);
+	int iNextInt(int i_max);
+	bool bChance(int i_chance);
+	double dNextDouble();
 };
 
