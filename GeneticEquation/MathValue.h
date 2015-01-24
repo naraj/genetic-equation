@@ -5,6 +5,7 @@ class CMathValue : public CNode
 	double d_value;
 public:
 	CMathValue();
+	CMathValue(double d_value);
 	~CMathValue();
 	CMathValue* create() const override;
 	CMathValue* clone() const override;

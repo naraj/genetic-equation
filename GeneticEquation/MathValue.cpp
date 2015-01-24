@@ -1,6 +1,10 @@
 #include "MathValue.h"
 #include "Random.h"
 
+CMathValue::CMathValue(double d_value) : d_value(d_value)
+{
+}
+
 CMathValue::CMathValue()
 {
 	d_value = 0.0;
