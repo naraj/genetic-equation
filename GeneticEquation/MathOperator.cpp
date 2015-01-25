@@ -13,7 +13,11 @@ CMathOperator::CMathOperator(COrganism* c_organism)
 	{
 		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
 		cLeft = p_c_node_factory->cGetRandomValue();
+		cLeft->setPcOrganism(this->c_organism);
+		cLeft->vMutate();
 		cRight = p_c_node_factory->cGetRandomValue();
+		cRight->setPcOrganism(this->c_organism);
+		cRight->vMutate();
 		cOperator = p_c_node_factory->cGetRandomOperator();
 	}
 }

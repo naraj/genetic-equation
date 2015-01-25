@@ -16,5 +16,10 @@ public:
 	virtual std::string sToString() = 0;
 	virtual bool bIsStatic() = 0;
 	virtual void vMutate() = 0;
+	void setPcOrganism(COrganism* c_organism);
 };
 
+inline void CNode::setPcOrganism(COrganism* c_organism)
+{
+	this->c_organism = c_organism;
+}
