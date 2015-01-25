@@ -174,3 +174,15 @@ void CMathOperator::vCollapse()
 		cLeft = cVal;
 	}
 }
+
+void CMathOperator::setLeft(CNode* cLeft)
+{
+	delete this->cLeft;
+	this->cLeft = cLeft;
+}
+
+void CMathOperator::setRight(CNode* cRight)
+{
+	delete this->cRight;
+	this->cRight = cRight;
+}

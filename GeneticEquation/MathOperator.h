@@ -17,5 +17,7 @@ public:
 	bool bIsStatic() override;
 	void vMutate() override;
 	void vCollapse();
+	void setLeft(CNode*);
+	void setRight(CNode*);
 };
 
