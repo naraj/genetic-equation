@@ -1,5 +1,6 @@
 #include "MathValue.h"
 #include "Random.h"
+#include  "Organism.h"
 
 CMathValue::CMathValue(COrganism* c_organism, double d_value) : d_value(d_value)
 {
@@ -42,13 +43,15 @@ bool CMathValue::bIsStatic()
 	return true;
 }
 
-void CMathValue::vMutate(const CRandom& cRand)
+void CMathValue::vMutate()
 {
-	if (cRand.bChance(50))
+	CRandom * c_random = this->c_organism->pcGetRandom();
+
+	if (c_random->bChance(50))
 	{
-		vMutateValue(cRand);
+		vMutateValue(*c_random);
 	}
-	if (cRand.bChance(100))
+	if (c_random->bChance(100))
 	{
 		d_value = static_cast<int>(d_value);
 	}

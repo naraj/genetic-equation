@@ -22,7 +22,6 @@ CMathVariable* CNodeFactory::cGetRandomVariable()
 
 CMathValue* CNodeFactory::cGetRandomValue()
 {
-	v_values[0].vMutate(*c_random);
 	return v_values[0].clone();
 }
 

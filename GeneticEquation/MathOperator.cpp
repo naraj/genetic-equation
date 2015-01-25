@@ -85,23 +85,24 @@ bool CMathOperator::bIsStatic()
 	return cLeft->bIsStatic() && cRight->bIsStatic();
 }
 
-void CMathOperator::vMutate(const CRandom& cRand)
+void CMathOperator::vMutate()
 {
+	CRandom * c_random = this->c_organism->pcGetRandom();
 	// swap
-	if (cRand.bChance(100))
+	if (c_random->bChance(100))
 	{
 		CNode* c_temp = cLeft;
 		cLeft = cRight;
 		cRight = c_temp;
 	}
 	// collapse
-	if (cRand.bChance(100))
+	if (c_random->bChance(100))
 	{
 		vCollapse();
 	}
 
 	// delete
-	if (cRand.bChance(15))
+	if (c_random->bChance(15))
 	{
 		if (CMathOperator* c_left = dynamic_cast<CMathOperator*>(cLeft))
 		{
@@ -111,7 +112,7 @@ void CMathOperator::vMutate(const CRandom& cRand)
 		}
 	}
 	// delete
-	if (cRand.bChance(15))
+	if (c_random->bChance(15))
 	{
 		if (CMathOperator* c_left = dynamic_cast<CMathOperator*>(cLeft))
 		{
@@ -121,7 +122,7 @@ void CMathOperator::vMutate(const CRandom& cRand)
 		}
 	}
 	// delete
-	if (cRand.bChance(15))
+	if (c_random->bChance(15))
 	{
 		if (CMathOperator* c_right = dynamic_cast<CMathOperator*>(cRight))
 		{
@@ -131,7 +132,7 @@ void CMathOperator::vMutate(const CRandom& cRand)
 		}
 	}
 	// delete
-	if (cRand.bChance(15))
+	if (c_random->bChance(15))
 	{
 		if (CMathOperator* c_right = dynamic_cast<CMathOperator*>(cRight))
 		{

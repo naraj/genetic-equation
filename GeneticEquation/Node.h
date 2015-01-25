@@ -15,6 +15,6 @@ public:
 	virtual double dEval(const CAbstrEngine *) = 0;
 	virtual std::string sToString() = 0;
 	virtual bool bIsStatic() = 0;
-	virtual void vMutate(const CRandom &) = 0;
+	virtual void vMutate() = 0;
 };
 

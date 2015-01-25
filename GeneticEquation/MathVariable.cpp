@@ -42,7 +42,7 @@ bool CMathVariable::bIsStatic()
 	return false;
 }
 
-void CMathVariable::vMutate(const CRandom&)
+void CMathVariable::vMutate()
 {
 	CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
 	CMathVariable* p_c_temp = p_c_node_factory->cGetRandomVariable();
