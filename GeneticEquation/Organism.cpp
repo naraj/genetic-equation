@@ -9,6 +9,13 @@ COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
 	cRandom = new CRandom();
 }
 
+COrganism::COrganism(const COrganism& cOther) : cProblem(cOther.cProblem)
+{
+	this->cRoot = cOther.cRoot->clone();
+	this->cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
+	this->cRandom = new CRandom();
+}
+
 COrganism::~COrganism()
 {
 	delete cRoot;
@@ -26,6 +33,16 @@ void COrganism::vCollapse()
 	{
 		c_math_operator->vCollapse();
 	}
+}
+
+COrganism* COrganism::pcMakeCrossover(COrganism& cFather)
+{
+	COrganism* c_child = new COrganism(*this);
+	CMathOperator* c_father_dna = cFather.pcGetRandomOperator()->clone();
+	CMathOperator* c_mother_dna = c_child->pcGetRandomOperator();
+	*c_mother_dna = *c_father_dna;
+
+	return c_child;
 }
 
 CNodeFactory* COrganism::pcGetNodeFactory()
