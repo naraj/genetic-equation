@@ -14,5 +14,16 @@ public:
 	~CCase()
 	{
 	}
+	std::vector<double> vGetArgs();
+	double dGetResult();
 };
 
+inline std::vector<double> CCase::vGetArgs()
+{
+	return v_args;
+}
+
+inline double CCase::dGetResult()
+{
+	return d_result;
+}

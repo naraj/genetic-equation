@@ -11,12 +11,14 @@ class COrganism
 	CNode* cRoot;
 	CNodeFactory* cFactory;
 	CRandom* cRandom;
+	double d_current_error = std::numeric_limits<double>::max();
 public:
 	COrganism(CProblem cProblem);
 	COrganism(const COrganism& cOther);
 	~COrganism();
 	std::string sToString();
 	void vCollapse();
+	void vTick();
 	COrganism* pcMakeCrossover(COrganism& cFather);
 
 	CNodeFactory* pcGetNodeFactory();
