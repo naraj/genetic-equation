@@ -162,7 +162,25 @@ void CMathOperator::vMutate()
 		cRight = new_op;
 	}
 
-	// TODO: replace
+	// replace
+	if (c_random->bChance(30))
+	{
+		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
+		CNode* new_node = p_c_node_factory->cGetRandomNode();
+		new_node->setPcOrganism(this->c_organism);
+		delete cLeft;
+		cLeft = new_node;
+	}
+
+	// replace
+	if (c_random->bChance(30))
+	{
+		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
+		CNode* new_node = p_c_node_factory->cGetRandomNode();
+		new_node->setPcOrganism(this->c_organism);
+		delete cRight;
+		cRight = new_node;
+	}
 
 	cLeft->vMutate();
 	cRight->vMutate();
