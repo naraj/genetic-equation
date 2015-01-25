@@ -146,7 +146,35 @@ void CMathOperator::vMutate()
 		}
 	}
 
-	// TODO more options
+	// add
+	if (c_random->bChance(100))
+	{
+		CMathOperator* new_op = new CMathOperator(this->c_organism);
+		new_op->setLeft(this->cLeft);
+		cLeft = new_op;
+	}
+
+	// add
+	if (c_random->bChance(100))
+	{
+		CMathOperator* new_op = new CMathOperator(this->c_organism);
+		new_op->setRight(this->cRight);
+		cRight = new_op;
+	}
+
+	// TODO: replace
+
+	cLeft->vMutate();
+	cRight->vMutate();
+
+	if (c_random->bChance(50))
+	{
+		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
+		COp* new_op = p_c_node_factory->cGetRandomOperator();
+		delete cOperator;
+		this->cOperator = new_op;
+	}
+
 }
 
 void CMathOperator::vCollapse()
