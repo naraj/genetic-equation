@@ -13,21 +13,29 @@ CMathOperator::CMathOperator(const CMathOperator& cOther)
 {
 	this->cLeft = cOther.cLeft->clone();
 	this->cRight = cOther.cRight->clone();
-	*(this->cOperator) = *(cOther.cOperator);
+	this->cOperator = cOther.cOperator->create();
 }
 
 CMathOperator& CMathOperator::operator=(const CMathOperator& cOther)
 {
 	if (this != &cOther)
 	{
-		delete this->cLeft;
-		delete this->cRight;
-		delete this->cOperator;
 		if (cOther.cLeft)
+		{
+			delete this->cLeft;
 			this->cLeft = cOther.cLeft->clone();
+		}
 		if (cOther.cRight)
+		{
+			delete this->cRight;
 			this->cRight = cOther.cRight->clone();
-		*(this->cOperator) = *(cOther.cOperator);
+		}
+		if (cOther.cOperator)
+		{
+			delete this->cOperator;
+			this->cOperator = cOther.cOperator->create();
+		}
+
 	}
 
 	return *this;
