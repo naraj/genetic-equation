@@ -1,6 +1,7 @@
 #include "MathOperator.h"
 #include "MathValue.h"
 #include "Random.h"
+#include "Organism.h"
 
 CMathOperator::CMathOperator(COrganism* c_organism)
 {
@@ -8,6 +9,13 @@ CMathOperator::CMathOperator(COrganism* c_organism)
 	cLeft = nullptr;
 	cRight = nullptr;
 	cOperator = nullptr;
+	if (c_organism)
+	{
+		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
+		cLeft = p_c_node_factory->cGetRandomValue();
+		cRight = p_c_node_factory->cGetRandomValue();
+		cOperator = p_c_node_factory->cGetRandomOperator();
+	}
 }
 
 CMathOperator::CMathOperator(const CMathOperator& cOther)

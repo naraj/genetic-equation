@@ -1,4 +1,6 @@
 #include "MathVariable.h"
+#include "NodeFactory.h"
+#include "Organism.h"
 
 
 CMathVariable::CMathVariable(COrganism* c_organism, std::string s_name) : s_name(s_name)
@@ -42,5 +44,8 @@ bool CMathVariable::bIsStatic()
 
 void CMathVariable::vMutate(const CRandom&)
 {
-	// TODO: CMathVariable::vMutate implementation
+	CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
+	CMathVariable* p_c_temp = p_c_node_factory->cGetRandomVariable();
+	this->s_name = p_c_temp->s_name;
+	delete p_c_temp;
 }

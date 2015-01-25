@@ -6,6 +6,7 @@ COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
 {
 	cRoot = new CMathOperator(this);
 	cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
+	cRandom = new CRandom();
 }
 
 COrganism::~COrganism()
@@ -25,4 +26,14 @@ void COrganism::vCollapse()
 	{
 		c_math_operator->vCollapse();
 	}
+}
+
+CNodeFactory* COrganism::pcGetNodeFactory()
+{
+	return cFactory;
+}
+
+CRandom* COrganism::pcGetRandom()
+{
+	return cRandom;
 }
