@@ -221,6 +221,16 @@ void CMathOperator::vCollapse()
 	}
 }
 
+CNode* CMathOperator::pcGetLeft()
+{
+	return cLeft;
+}
+
+CNode* CMathOperator::pcGetRight()
+{
+	return cRight;
+}
+
 void CMathOperator::setLeft(CNode* cLeft)
 {
 	delete this->cLeft;
