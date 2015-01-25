@@ -13,41 +13,74 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Operators">
+    <Filter Include="Header Files\DNA">
+      <UniqueIdentifier>{d28087a7-0dd0-43f5-a097-22052cb76bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DNA\Problem Domain">
+      <UniqueIdentifier>{900ee26e-035d-4be4-b5b3-e26630ebc563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DNA\Operators">
       <UniqueIdentifier>{a79dac56-19ef-4073-b96d-2423c21c396e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DNA">
+      <UniqueIdentifier>{392919e9-98e7-4d8a-9190-d43aaede8267}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AbstrEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MathOperator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Op.h">
-      <Filter>Header Files\Operators</Filter>
+      <Filter>Header Files\DNA\Operators</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Problem.h">
+      <Filter>Header Files\DNA\Problem Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="Case.h">
+      <Filter>Header Files\DNA\Problem Domain</Filter>
+    </ClInclude>
+    <ClInclude Include="MathOperator.h">
+      <Filter>Header Files\DNA</Filter>
+    </ClInclude>
     <ClInclude Include="MathValue.h">
+      <Filter>Header Files\DNA</Filter>
+    </ClInclude>
+    <ClInclude Include="MathVariable.h">
+      <Filter>Header Files\DNA</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\DNA</Filter>
+    </ClInclude>
+    <ClInclude Include="Organism.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MathOperator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MathOperator.cpp">
+      <Filter>Source Files\DNA</Filter>
+    </ClCompile>
     <ClCompile Include="MathValue.cpp">
+      <Filter>Source Files\DNA</Filter>
+    </ClCompile>
+    <ClCompile Include="MathVariable.cpp">
+      <Filter>Source Files\DNA</Filter>
+    </ClCompile>
+    <ClCompile Include="Organism.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

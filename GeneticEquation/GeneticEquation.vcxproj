@@ -77,16 +77,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AbstrEngine.h" />
+    <ClInclude Include="Case.h" />
     <ClInclude Include="MathOperator.h" />
     <ClInclude Include="MathValue.h" />
+    <ClInclude Include="MathVariable.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeFactory.h" />
     <ClInclude Include="Op.h" />
+    <ClInclude Include="Organism.h" />
+    <ClInclude Include="Problem.h" />
     <ClInclude Include="Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MathOperator.cpp" />
     <ClCompile Include="MathValue.cpp" />
+    <ClCompile Include="MathVariable.cpp" />
+    <ClCompile Include="NodeFactory.cpp" />
+    <ClCompile Include="Organism.cpp" />
     <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

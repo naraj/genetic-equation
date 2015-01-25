@@ -2,7 +2,7 @@
 #include "MathOperator.h"
 
 
-COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
+COrganism::COrganism(CNodeFactory* cFactory, CProblem cProblem) : cProblem(cProblem), cFactory(cFactory)
 {
 	cRoot = new CMathOperator();
 }
