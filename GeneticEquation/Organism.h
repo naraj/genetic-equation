@@ -3,6 +3,8 @@
 #include "Node.h"
 #include "NodeFactory.h"
 
+class CMathOperator;
+
 class COrganism
 {
 	CProblem cProblem;
@@ -16,5 +18,8 @@ public:
 	void vCollapse();
 	CNodeFactory* pcGetNodeFactory();
 	CRandom* pcGetRandom();
+private:
+	CMathOperator* pcGetRandomOperator();
+	void vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes);
 };
 

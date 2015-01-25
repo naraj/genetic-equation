@@ -37,3 +37,23 @@ CRandom* COrganism::pcGetRandom()
 {
 	return cRandom;
 }
+
+CMathOperator* COrganism::pcGetRandomOperator()
+{
+	std::vector<CMathOperator*> nodes;
+	vTraverseDNA(*cRoot, nodes);
+
+	return nodes[this->cRandom->iNextInt(nodes.size())];
+}
+
+void COrganism::vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes)
+{
+	if (CMathOperator* cOp = dynamic_cast<CMathOperator*>(&current_node))
+	{
+		nodes.push_back(cOp);
+
+		vTraverseDNA(*cOp->pcGetLeft(), nodes);
+		vTraverseDNA(*cOp->pcGetRight(), nodes);
+
+	}
+}
