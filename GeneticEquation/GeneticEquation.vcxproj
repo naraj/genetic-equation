@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClInclude Include="AbstrEngine.h" />
     <ClInclude Include="Case.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="MathOperator.h" />
     <ClInclude Include="MathValue.h" />
     <ClInclude Include="MathVariable.h" />
