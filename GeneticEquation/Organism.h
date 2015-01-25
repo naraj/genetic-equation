@@ -10,5 +10,6 @@ public:
 	COrganism(CProblem cProblem);
 	~COrganism();
 	std::string sToString();
+	void vCollapse();
 };
 
