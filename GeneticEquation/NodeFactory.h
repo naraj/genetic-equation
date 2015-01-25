@@ -6,7 +6,7 @@
 
 class CNodeFactory	
 {
-	CRandom c_random;
+	CRandom* c_random;
 	std::vector<COp> v_operators;
 	std::vector<CMathVariable> v_vars;
 	std::vector<CMathValue> v_values;

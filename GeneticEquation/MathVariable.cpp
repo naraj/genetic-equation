@@ -1,8 +1,9 @@
 #include "MathVariable.h"
 
 
-CMathVariable::CMathVariable(std::string s_name) : s_name(s_name)
+CMathVariable::CMathVariable(COrganism* c_organism, std::string s_name) : s_name(s_name)
 {
+	this->c_organism = c_organism;
 }
 
 CMathVariable::CMathVariable(const CMathVariable& cOther)
@@ -10,9 +11,9 @@ CMathVariable::CMathVariable(const CMathVariable& cOther)
 	this->s_name = cOther.s_name;
 }
 
-CMathVariable* CMathVariable::create() const
+CMathVariable* CMathVariable::create(COrganism* c_organism) const
 {
-	return new CMathVariable("");
+	return new CMathVariable(c_organism, "");
 }
 
 CMathVariable* CMathVariable::clone() const

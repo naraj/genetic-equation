@@ -6,10 +6,10 @@ class CMathOperator : public CNode
 	CNode *cLeft, *cRight;
 	COp *cOperator;
 public:
-	CMathOperator();
+	CMathOperator(COrganism*);
 	CMathOperator(const CMathOperator& cOther);
 	CMathOperator& operator= (const CMathOperator&);
-	CMathOperator* create() const override;
+	CMathOperator* create(COrganism*) const override;
 	CMathOperator* clone() const override;
 	~CMathOperator();
 	std::string sToString() override;

@@ -4,10 +4,10 @@ class CMathValue : public CNode
 {
 	double d_value;
 public:
-	CMathValue();
-	CMathValue(double d_value);
+	CMathValue(COrganism*);
+	CMathValue(COrganism*,double d_value);
 	~CMathValue();
-	CMathValue* create() const override;
+	CMathValue* create(COrganism*) const override;
 	CMathValue* clone() const override;
 	double dEval(const CAbstrEngine *) override;
 	std::string sToString() override;

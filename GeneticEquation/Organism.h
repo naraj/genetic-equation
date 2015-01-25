@@ -9,7 +9,7 @@ class COrganism
 	CNode* cRoot;
 	CNodeFactory* cFactory;
 public:
-	COrganism(CNodeFactory* cFactory, CProblem cProblem);
+	COrganism(CProblem cProblem);
 	~COrganism();
 	std::string sToString();
 	void vCollapse();

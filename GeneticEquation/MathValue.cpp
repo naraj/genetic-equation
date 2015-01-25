@@ -1,12 +1,14 @@
 #include "MathValue.h"
 #include "Random.h"
 
-CMathValue::CMathValue(double d_value) : d_value(d_value)
+CMathValue::CMathValue(COrganism* c_organism, double d_value) : d_value(d_value)
 {
+	this->c_organism = c_organism;
 }
 
-CMathValue::CMathValue()
+CMathValue::CMathValue(COrganism* c_organism)
 {
+	this->c_organism = c_organism;
 	d_value = 0.0;
 }
 
@@ -15,9 +17,9 @@ CMathValue::~CMathValue()
 {
 }
 
-CMathValue* CMathValue::create() const
+CMathValue* CMathValue::create(COrganism* c_organism) const
 {
-	return new CMathValue();
+	return new CMathValue(c_organism);
 }
 
 CMathValue* CMathValue::clone() const

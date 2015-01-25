@@ -2,14 +2,16 @@
 #include "MathOperator.h"
 
 
-COrganism::COrganism(CNodeFactory* cFactory, CProblem cProblem) : cProblem(cProblem), cFactory(cFactory)
+COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
 {
-	cRoot = new CMathOperator();
+	cRoot = new CMathOperator(this);
+	cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 }
 
 COrganism::~COrganism()
 {
 	delete cRoot;
+	delete cFactory;
 }
 
 std::string COrganism::sToString()

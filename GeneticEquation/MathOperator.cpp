@@ -2,8 +2,9 @@
 #include "MathValue.h"
 #include "Random.h"
 
-CMathOperator::CMathOperator()
+CMathOperator::CMathOperator(COrganism* c_organism)
 {
+	this->c_organism = c_organism;
 	cLeft = nullptr;
 	cRight = nullptr;
 	cOperator = nullptr;
@@ -14,6 +15,7 @@ CMathOperator::CMathOperator(const CMathOperator& cOther)
 	this->cLeft = cOther.cLeft->clone();
 	this->cRight = cOther.cRight->clone();
 	this->cOperator = cOther.cOperator->create();
+	this->c_organism = cOther.c_organism;
 }
 
 CMathOperator& CMathOperator::operator=(const CMathOperator& cOther)
@@ -36,14 +38,16 @@ CMathOperator& CMathOperator::operator=(const CMathOperator& cOther)
 			this->cOperator = cOther.cOperator->create();
 		}
 
+		this->c_organism = cOther.c_organism;
+
 	}
 
 	return *this;
 }
 
-CMathOperator* CMathOperator::create() const
+CMathOperator* CMathOperator::create(COrganism* c_organism) const
 {
-	return new CMathOperator();
+	return new CMathOperator(c_organism);
 }
 
 CMathOperator* CMathOperator::clone() const
@@ -145,14 +149,14 @@ void CMathOperator::vCollapse()
 	if (cLeft->bIsStatic())
 	{
 		double d_left = cLeft->dEval(nullptr);
-		CMathValue* cVal = new CMathValue(d_left);
+		CMathValue* cVal = new CMathValue(this->c_organism, d_left);
 		delete cLeft;
 		cLeft = cVal;
 	}
 	if (cRight->bIsStatic())
 	{
 		double d_right = cRight->dEval(nullptr);
-		CMathValue* cVal = new CMathValue(d_right);
+		CMathValue* cVal = new CMathValue(this->c_organism, d_right);
 		delete cRight;
 		cLeft = cVal;
 	}

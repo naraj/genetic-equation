@@ -4,9 +4,9 @@ class CMathVariable : public CNode
 {
 	std::string s_name;
 public:
-	CMathVariable(std::string s_name);
+	CMathVariable(COrganism*, std::string s_name);
 	CMathVariable(const CMathVariable& cOther);
-	CMathVariable* create() const override;
+	CMathVariable* create(COrganism*) const override;
 	CMathVariable* clone() const override;
 	~CMathVariable();
 
