@@ -30,6 +30,11 @@ COp* CNodeFactory::cGetRandomOperator()
 	return v_operators[c_random->iNextInt(v_operators.size() - 1)].create();
 }
 
+CNode* CNodeFactory::cGetRandomNode()
+{
+	return v_nodes[c_random->iNextInt(v_operators.size() - 1)].clone();
+}
+
 void CNodeFactory::vPopulateOperators()
 {
 	// TODO: populate operators in CNodeFactory
@@ -39,10 +44,14 @@ void CNodeFactory::vPopulateVariables()
 {
 	std::string names = "abcdefghijklmnopqrstuvwxyz";
 	for (int i = 0; i < i_number_of_vars; i++)
+	{
 		v_vars.push_back(CMathVariable(nullptr, std::string(1, names[names.size() - i_number_of_vars + i])));
+		v_nodes.push_back(CMathVariable(nullptr, std::string(1, names[names.size() - i_number_of_vars + i])));
+	}
 }
 
 void CNodeFactory::vPopulateValues()
 {
 	v_values.push_back(CMathValue(nullptr));
+	v_nodes.push_back(CMathValue(nullptr));
 }
