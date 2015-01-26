@@ -217,7 +217,7 @@ void CMathOperator::vCollapse()
 		double d_right = cRight->dEval(nullptr);
 		CMathValue* cVal = new CMathValue(this->c_organism, d_right);
 		delete cRight;
-		cLeft = cVal;
+		cRight = cVal;
 	}
 }
 
