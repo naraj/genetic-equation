@@ -8,6 +8,7 @@ COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
 	cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 	cRandom = new CRandom();
 	cRoot = new CMathOperator(this);
+	d_current_error = std::numeric_limits<double>::max();
 }
 
 COrganism::COrganism(const COrganism& cOther) : cProblem(cOther.cProblem)
@@ -16,12 +17,14 @@ COrganism::COrganism(const COrganism& cOther) : cProblem(cOther.cProblem)
 	this->cRandom = new CRandom();
 	this->cRoot = cOther.cRoot->clone();
 	this->cRoot->setPcOrganism(this);
+	this->d_current_error = std::numeric_limits<double>::max();
 }
 
 COrganism::~COrganism()
 {
 	delete cRoot;
 	delete cFactory;
+	delete cRandom;
 }
 
 std::string COrganism::sToString()
@@ -71,7 +74,7 @@ COrganism* COrganism::pcMakeCrossover(COrganism& cFather)
 	CMathOperator* c_father_dna = cFather.pcGetRandomOperator()->clone();
 	CMathOperator* c_mother_dna = c_child->pcGetRandomOperator();
 	*c_mother_dna = *c_father_dna;
-
+	c_mother_dna->setPcOrganism(c_child);
 	return c_child;
 }
 
@@ -95,7 +98,7 @@ CMathOperator* COrganism::pcGetRandomOperator()
 	std::vector<CMathOperator*> nodes;
 	vTraverseDNA(*cRoot, nodes);
 
-	return nodes[this->cRandom->iNextInt(nodes.size())];
+	return nodes[this->cRandom->iNextInt(nodes.size() - 1)];
 }
 
 void COrganism::vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes)

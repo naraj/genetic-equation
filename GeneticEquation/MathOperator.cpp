@@ -181,8 +181,9 @@ void CMathOperator::vMutate()
 		delete cRight;
 		cRight = new_node;
 	}
-
+	cLeft->setPcOrganism(this->c_organism);
 	cLeft->vMutate();
+	cRight->setPcOrganism(this->c_organism);
 	cRight->vMutate();
 
 	if (c_random->bChance(50))

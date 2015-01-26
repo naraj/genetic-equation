@@ -47,7 +47,7 @@ void CMathValue::vMutate()
 {
 	CRandom * c_random = this->c_organism->pcGetRandom();
 
-	if (c_random->bChance(50))
+	if (c_random->bChance(30))
 	{
 		vMutateValue(*c_random);
 	}

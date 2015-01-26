@@ -11,7 +11,7 @@ class COrganism
 	CNode* cRoot;
 	CNodeFactory* cFactory;
 	CRandom* cRandom;
-	double d_current_error = std::numeric_limits<double>::max();
+	double d_current_error;
 public:
 	COrganism(CProblem cProblem);
 	COrganism(const COrganism& cOther);
