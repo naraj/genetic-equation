@@ -21,5 +21,6 @@ public:
 	CNode* pcGetRight();
 	void setLeft(CNode*);
 	void setRight(CNode*);
+	void setPcOrganism(COrganism* c_organism) override;
 };
 

@@ -242,3 +242,10 @@ void CMathOperator::setRight(CNode* cRight)
 	delete this->cRight;
 	this->cRight = cRight;
 }
+
+void CMathOperator::setPcOrganism(COrganism* c_organism)
+{
+	this->c_organism = c_organism;
+	cLeft->setPcOrganism(c_organism);
+	cRight->setPcOrganism(c_organism);
+}

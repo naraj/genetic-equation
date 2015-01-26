@@ -15,6 +15,7 @@ COrganism::COrganism(const COrganism& cOther) : cProblem(cOther.cProblem)
 	this->cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 	this->cRandom = new CRandom();
 	this->cRoot = cOther.cRoot->clone();
+	this->cRoot->setPcOrganism(this);
 }
 
 COrganism::~COrganism()
