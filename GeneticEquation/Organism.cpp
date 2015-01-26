@@ -5,16 +5,16 @@
 
 COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
 {
-	cRoot = new CMathOperator(this);
 	cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 	cRandom = new CRandom();
+	cRoot = new CMathOperator(this);
 }
 
 COrganism::COrganism(const COrganism& cOther) : cProblem(cOther.cProblem)
 {
-	this->cRoot = cOther.cRoot->clone();
 	this->cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 	this->cRandom = new CRandom();
+	this->cRoot = cOther.cRoot->clone();
 }
 
 COrganism::~COrganism()
@@ -72,6 +72,11 @@ COrganism* COrganism::pcMakeCrossover(COrganism& cFather)
 	*c_mother_dna = *c_father_dna;
 
 	return c_child;
+}
+
+double COrganism::dGetCurrError()
+{
+	return d_current_error;
 }
 
 CNodeFactory* COrganism::pcGetNodeFactory()

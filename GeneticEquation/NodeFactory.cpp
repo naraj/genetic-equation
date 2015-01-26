@@ -1,4 +1,6 @@
 #include "NodeFactory.h"
+#include "Add.h"
+#include "Sub.h"
 
 
 CNodeFactory::CNodeFactory(int i_number_of_vars) : i_number_of_vars(i_number_of_vars)
@@ -13,8 +15,10 @@ CNodeFactory::CNodeFactory(int i_number_of_vars) : i_number_of_vars(i_number_of_
 CNodeFactory::~CNodeFactory()
 {
 	delete c_random;
-	for (int i = 0; i < v_nodes.size(); i++)
+	for (size_t i = 0; i < v_nodes.size(); i++)
 		delete v_nodes[i];
+	for (size_t i = 0; i < v_operators.size(); i++)
+		delete v_operators[i];
 }
 
 CMathVariable* CNodeFactory::cGetRandomVariable()
@@ -24,22 +28,24 @@ CMathVariable* CNodeFactory::cGetRandomVariable()
 
 CMathValue* CNodeFactory::cGetRandomValue()
 {
-	return v_values[0].clone();
+	return v_values.front()->clone();
 }
 
 COp* CNodeFactory::cGetRandomOperator()
 {
-	return v_operators[c_random->iNextInt(v_operators.size() - 1)].create();
+	return v_operators[c_random->iNextInt(v_operators.size() - 1)]->create();
 }
 
 CNode* CNodeFactory::cGetRandomNode()
 {
-	return v_nodes[c_random->iNextInt(v_operators.size() - 1)]->clone();
+	return v_nodes[c_random->iNextInt(v_nodes.size() - 1)]->clone();
 }
 
 void CNodeFactory::vPopulateOperators()
 {
 	// TODO: populate operators in CNodeFactory
+	v_operators.push_back(new CAdd());
+	v_operators.push_back(new CSub());
 }
 
 void CNodeFactory::vPopulateVariables()
@@ -54,6 +60,6 @@ void CNodeFactory::vPopulateVariables()
 
 void CNodeFactory::vPopulateValues()
 {
-	v_values.push_back(CMathValue(nullptr));
+	v_values.push_back(new CMathValue(nullptr));
 	v_nodes.push_back(new CMathValue(nullptr));
 }

@@ -20,6 +20,7 @@ public:
 	void vCollapse();
 	void vTick();
 	COrganism* pcMakeCrossover(COrganism& cFather);
+	double dGetCurrError();
 
 	CNodeFactory* pcGetNodeFactory();
 	CRandom* pcGetRandom();

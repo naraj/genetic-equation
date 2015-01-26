@@ -63,6 +63,12 @@
     <ClInclude Include="Engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Add.h">
+      <Filter>Header Files\DNA\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="Sub.h">
+      <Filter>Header Files\DNA\Operators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
