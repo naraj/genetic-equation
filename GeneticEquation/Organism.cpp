@@ -43,8 +43,7 @@ void COrganism::vCollapse()
 void COrganism::vTick()
 {
 	CEngine e = CEngine();
-	CNode* new_root = cRoot->clone();
-	new_root->vMutate();
+	cRoot->vMutate();
 
 	double total_new_error = 0;
 
@@ -59,13 +58,7 @@ void COrganism::vTick()
 		total_new_error += new_error;
 	}
 
-	if (total_new_error < d_current_error)
-	{
-		delete cRoot;
-		cRoot = new_root;
-		d_current_error = total_new_error;
-	}
-
+	d_current_error = total_new_error;
 }
 
 COrganism* COrganism::pcMakeCrossover(COrganism& cFather)
