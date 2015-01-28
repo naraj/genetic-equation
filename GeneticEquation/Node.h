@@ -13,7 +13,7 @@ public:
 	virtual CNode* create(COrganism*) const = 0;
 	virtual CNode* clone() const = 0;
 	virtual double dEval(const CAbstrEngine *) = 0;
-	virtual std::string sToString() = 0;
+	virtual std::string sToString() const = 0;
 	virtual bool bIsStatic() = 0;
 	virtual void vMutate() = 0;
 	virtual void setPcOrganism(COrganism* c_organism);

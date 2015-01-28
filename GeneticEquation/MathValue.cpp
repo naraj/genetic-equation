@@ -33,7 +33,7 @@ double CMathValue::dEval(const CAbstrEngine*)
 	return d_value;
 }
 
-std::string CMathValue::sToString()
+std::string CMathValue::sToString() const
 {
 	return std::to_string(d_value);
 }

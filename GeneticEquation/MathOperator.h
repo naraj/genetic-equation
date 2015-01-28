@@ -12,7 +12,7 @@ public:
 	CMathOperator* create(COrganism*) const override;
 	CMathOperator* clone() const override;
 	~CMathOperator();
-	std::string sToString() override;
+	std::string sToString() const override;
 	double dEval(const CAbstrEngine *) override;
 	bool bIsStatic() override;
 	void vMutate() override;

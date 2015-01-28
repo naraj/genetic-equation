@@ -74,7 +74,7 @@ CMathOperator::~CMathOperator()
 	delete cOperator;
 }
 
-std::string CMathOperator::sToString()
+std::string CMathOperator::sToString() const
 {
 	return cOperator->sToString(cLeft->sToString(), cRight->sToString());
 }

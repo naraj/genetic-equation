@@ -32,7 +32,7 @@ double CMathVariable::dEval(const CAbstrEngine* cEngine)
 	return cEngine->dGetVariable(s_name);
 }
 
-std::string CMathVariable::sToString()
+std::string CMathVariable::sToString() const
 {
 	return s_name;
 }

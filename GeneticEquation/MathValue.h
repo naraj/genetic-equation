@@ -10,7 +10,7 @@ public:
 	CMathValue* create(COrganism*) const override;
 	CMathValue* clone() const override;
 	double dEval(const CAbstrEngine *) override;
-	std::string sToString() override;
+	std::string sToString() const override;
 	bool bIsStatic() override;
 	void vMutate() override;
 	double dGetValue();

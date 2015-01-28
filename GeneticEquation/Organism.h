@@ -16,16 +16,16 @@ public:
 	COrganism(CProblem cProblem);
 	COrganism(const COrganism& cOther);
 	~COrganism();
-	std::string sToString();
+	std::string sToString() const;
 	void vCollapse();
 	void vTick();
-	COrganism* pcMakeCrossover(COrganism& cFather);
+	COrganism* pcMakeCrossover(const COrganism& cFather) const;
 	double dGetCurrError();
 
 	CNodeFactory* pcGetNodeFactory();
 	CRandom* pcGetRandom();
 private:
-	CMathOperator* pcGetRandomOperator();
-	void vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes);
+	CMathOperator* pcGetRandomOperator() const;
+	void vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes) const;
 };
 
