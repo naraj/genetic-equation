@@ -16,7 +16,7 @@ public:
 	{
 	}
 
-	void vAddCase(CCase c_case)
+	void vAddCase(const CCase& c_case)
 	{
 		v_cases.push_back(c_case);
 	}
