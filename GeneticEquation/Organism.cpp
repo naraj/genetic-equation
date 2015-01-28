@@ -1,6 +1,7 @@
 #include "Organism.h"
 #include "MathOperator.h"
 #include "Engine.h"
+#include <math.h>
 
 
 COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
@@ -43,7 +44,9 @@ void COrganism::vCollapse()
 void COrganism::vTick()
 {
 	CEngine e = CEngine();
-	cRoot->vMutate();
+	CNode* new_root = cRoot->clone();
+	new_root->vMutate();
+
 
 	double total_new_error = 0;
 
@@ -52,13 +55,23 @@ void COrganism::vTick()
 	for (size_t i = 0; i < v_cases.size(); i++)
 	{
 		e.vSetMultipleVariables(v_cases[i].vGetArgs());
-		double new_result = cRoot->dEval(&e);
+		double new_result = new_root->dEval(&e);
 
-		double new_error = std::pow(new_result - v_cases[i].dGetResult(), 2);
+		double new_error = fabs(new_result - v_cases[i].dGetResult());
 		total_new_error += new_error;
 	}
 
-	d_current_error = total_new_error;
+	if (total_new_error < d_current_error)
+	{
+		delete cRoot;
+		cRoot = new_root;
+		d_current_error = total_new_error;
+	}
+	else
+	{
+		delete new_root;
+	}
+
 }
 
 COrganism* COrganism::pcMakeCrossover(COrganism& cFather)

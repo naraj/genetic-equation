@@ -44,8 +44,12 @@ bool CMathVariable::bIsStatic()
 
 void CMathVariable::vMutate()
 {
-	CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
-	CMathVariable* p_c_temp = p_c_node_factory->cGetRandomVariable();
-	this->s_name = p_c_temp->s_name;
-	delete p_c_temp;
+	CRandom* p_c_random = this->c_organism->pcGetRandom();
+	if (p_c_random->bChance(20))
+	{
+		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
+		CMathVariable* p_c_temp = p_c_node_factory->cGetRandomVariable();
+		this->s_name = p_c_temp->s_name;
+		delete p_c_temp;
+	}	
 }
