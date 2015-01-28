@@ -21,12 +21,12 @@ public:
 		v_cases.push_back(c_case);
 	}
 
-	const std::vector<CCase>& vGetCases()
+	const std::vector<CCase>& vGetCases() const
 	{
 		return v_cases;
 	}
 	
-	int iGetNumberOfArgs()
+	int iGetNumberOfArgs() const
 	{
 		return i_number_of_args;
 	}

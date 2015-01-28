@@ -7,13 +7,13 @@ class CMathOperator;
 
 class COrganism
 {
-	CProblem cProblem;
+	const CProblem& cProblem;
 	CNode* cRoot;
 	CNodeFactory* cFactory;
 	CRandom* cRandom;
 	double d_current_error;
 public:
-	COrganism(CProblem cProblem);
+	COrganism(const CProblem& cProblem);
 	COrganism(const COrganism& cOther);
 	~COrganism();
 	std::string sToString() const;

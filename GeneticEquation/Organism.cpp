@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-COrganism::COrganism(CProblem cProblem) : cProblem(cProblem)
+COrganism::COrganism(const CProblem& cProblem) : cProblem(cProblem)
 {
 	cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 	cRandom = new CRandom();
