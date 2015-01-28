@@ -69,6 +69,12 @@
     <ClInclude Include="Sub.h">
       <Filter>Header Files\DNA\Operators</Filter>
     </ClInclude>
+    <ClInclude Include="Mult.h">
+      <Filter>Header Files\DNA\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="Div.h">
+      <Filter>Header Files\DNA\Operators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

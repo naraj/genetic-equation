@@ -1,6 +1,8 @@
 #include "NodeFactory.h"
 #include "Add.h"
 #include "Sub.h"
+#include "Mult.h"
+#include "Div.h"
 
 
 CNodeFactory::CNodeFactory(int i_number_of_vars) : i_number_of_vars(i_number_of_vars)
@@ -46,6 +48,8 @@ void CNodeFactory::vPopulateOperators()
 	// TODO: populate operators in CNodeFactory
 	v_operators.push_back(new CAdd());
 	v_operators.push_back(new CSub());
+	v_operators.push_back(new CMult());
+	v_operators.push_back(new CDiv());
 }
 
 void CNodeFactory::vPopulateVariables()
