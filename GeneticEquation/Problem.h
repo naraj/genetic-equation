@@ -21,7 +21,7 @@ public:
 		v_cases.push_back(c_case);
 	}
 
-	std::vector<CCase> vGetCases()
+	const std::vector<CCase>& vGetCases()
 	{
 		return v_cases;
 	}

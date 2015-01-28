@@ -1,6 +1,5 @@
 #include "Organism.h"
 #include "MathOperator.h"
-#include "Engine.h"
 #include <math.h>
 
 
@@ -54,8 +53,7 @@ void COrganism::vTick()
 
 	for (size_t i = 0; i < v_cases.size(); i++)
 	{
-		e.vSetMultipleVariables(v_cases[i].vGetArgs());
-		double new_result = new_root->dEval(&e);
+		double new_result = new_root->dEval(&v_cases[i].cGetEngine());
 
 		double new_error = fabs(new_result - v_cases[i].dGetResult());
 		total_new_error += new_error;
