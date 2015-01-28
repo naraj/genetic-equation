@@ -78,6 +78,7 @@
   <ItemGroup>
     <ClInclude Include="AbstrEngine.h" />
     <ClInclude Include="Add.h" />
+    <ClInclude Include="Algorithm.h" />
     <ClInclude Include="Case.h" />
     <ClInclude Include="Div.h" />
     <ClInclude Include="Engine.h" />
@@ -89,17 +90,20 @@
     <ClInclude Include="NodeFactory.h" />
     <ClInclude Include="Op.h" />
     <ClInclude Include="Organism.h" />
+    <ClInclude Include="OrganismObserver.h" />
     <ClInclude Include="Problem.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Sub.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MathOperator.cpp" />
     <ClCompile Include="MathValue.cpp" />
     <ClCompile Include="MathVariable.cpp" />
     <ClCompile Include="NodeFactory.cpp" />
     <ClCompile Include="Organism.cpp" />
+    <ClCompile Include="OrganismObserver.cpp" />
     <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
