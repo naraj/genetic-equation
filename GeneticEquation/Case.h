@@ -19,8 +19,8 @@ public:
 	{
 	}
 	std::vector<double>& vGetArgs();
-	double dGetResult();
-	const CEngine& cGetEngine();
+	double dGetResult() const;
+	const CEngine& cGetEngine() const;
 };
 
 inline std::vector<double>& CCase::vGetArgs()
@@ -28,12 +28,12 @@ inline std::vector<double>& CCase::vGetArgs()
 	return v_args;
 }
 
-inline double CCase::dGetResult()
+inline double CCase::dGetResult() const
 {
 	return d_result;
 }
 
-inline const CEngine& CCase::cGetEngine()
+inline const CEngine& CCase::cGetEngine() const
 {
 	return c_engine;
 }

@@ -34,7 +34,7 @@ std::string COrganism::sToString()
 
 void COrganism::vCollapse()
 {
-	if (CMathOperator* c_math_operator = dynamic_cast<CMathOperator*>(cRoot))
+	if (auto c_math_operator = dynamic_cast<CMathOperator*>(cRoot))
 	{
 		c_math_operator->vCollapse();
 	}
@@ -42,20 +42,19 @@ void COrganism::vCollapse()
 
 void COrganism::vTick()
 {
-	CEngine e = CEngine();
 	CNode* new_root = cRoot->clone();
 	new_root->vMutate();
 
 
 	double total_new_error = 0;
 
-	std::vector<CCase> v_cases = cProblem.vGetCases();
+	const auto& v_cases = cProblem.vGetCases(); // possible bottleneck
 
 	for (size_t i = 0; i < v_cases.size(); i++)
 	{
-		double new_result = new_root->dEval(&v_cases[i].cGetEngine());
+		auto new_result = new_root->dEval(&v_cases[i].cGetEngine());
 
-		double new_error = fabs(new_result - v_cases[i].dGetResult());
+		auto new_error = fabs(new_result - v_cases[i].dGetResult());
 		total_new_error += new_error;
 	}
 
@@ -74,9 +73,9 @@ void COrganism::vTick()
 
 COrganism* COrganism::pcMakeCrossover(COrganism& cFather)
 {
-	COrganism* c_child = new COrganism(*this);
-	CMathOperator* c_father_dna = cFather.pcGetRandomOperator()->clone();
-	CMathOperator* c_mother_dna = c_child->pcGetRandomOperator();
+	auto c_child = new COrganism(*this);
+	auto c_father_dna = cFather.pcGetRandomOperator()->clone();
+	auto c_mother_dna = c_child->pcGetRandomOperator();
 	*c_mother_dna = *c_father_dna;
 	c_mother_dna->setPcOrganism(c_child);
 	return c_child;
@@ -107,7 +106,7 @@ CMathOperator* COrganism::pcGetRandomOperator()
 
 void COrganism::vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes)
 {
-	if (CMathOperator* cOp = dynamic_cast<CMathOperator*>(&current_node))
+	if (auto cOp = dynamic_cast<CMathOperator*>(&current_node))
 	{
 		nodes.push_back(cOp);
 
