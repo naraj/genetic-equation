@@ -47,9 +47,15 @@ void CMathValue::vMutate()
 {
 	CRandom * c_random = this->c_organism->pcGetRandom();
 
-	if (c_random->bChance(30))
+	if (c_random->bChance(10))
 	{
 		vMutateValue(*c_random);
+	}
+	if (c_random->bChance(50))
+	{
+		int i_digits = c_random->iNextInt(5);
+		double d_places = pow(10.0, i_digits);
+		d_value = std::round(d_value * d_places) / d_places;
 	}
 	if (c_random->bChance(100))
 	{
