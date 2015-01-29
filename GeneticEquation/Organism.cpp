@@ -48,7 +48,7 @@ void COrganism::vTick()
 
 	double total_new_error = 0;
 
-	const auto& v_cases = cProblem.vGetCases(); // possible bottleneck
+	const auto& v_cases = cProblem.vGetCases();
 
 	for (size_t i = 0; i < v_cases.size(); i++)
 	{
@@ -81,7 +81,7 @@ COrganism* COrganism::pcMakeCrossover(const COrganism& cFather) const
 	return c_child;
 }
 
-double COrganism::dGetCurrError()
+double COrganism::dGetCurrError() const
 {
 	return d_current_error;
 }
