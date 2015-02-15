@@ -7,11 +7,15 @@ CAlgorithm::CAlgorithm(int i_number_of_chromosomes, int i_replace_by_generation,
 	// there should be at least 2 chromosomes in population
 	if (i_number_of_chromosomes < 2)
 		this->i_number_of_chromosomes = 2;
+	else
+		this->i_number_of_chromosomes = i_number_of_chromosomes;
 
 	if (i_replace_by_generation < 1)
 		this->i_replace_by_generation = 1;
 	else if (i_replace_by_generation > i_number_of_chromosomes - 1)
 		this->i_replace_by_generation = i_number_of_chromosomes - 1;
+	else
+		this->i_replace_by_generation = i_replace_by_generation;
 	// reserve space for population
 	v_chromosomes.resize(i_number_of_chromosomes);
 
@@ -31,7 +35,7 @@ CAlgorithm::~CAlgorithm()
 
 void CAlgorithm::vStart()
 {
-	for (size_t i = 0; i < v_chromosomes.size(); ++i)
+	for (int i = 0; i < i_number_of_chromosomes; ++i)
 		v_chromosomes[i] = new COrganism(cProblem);
 
 	auto b_is_done = false;
@@ -60,11 +64,11 @@ void CAlgorithm::vStart()
 			b_is_done = true;
 		else
 		{
-			for (size_t i = v_chromosomes.size() - 1; i >= v_chromosomes.size() - 1 - i_replace_by_generation; --i)
+			for (int i = i_number_of_chromosomes - 1; i > i_number_of_chromosomes - 1 - i_replace_by_generation; --i)
 			{
 				delete v_chromosomes[i];
 			}
-			for (size_t i = v_chromosomes.size() - 1; i >= v_chromosomes.size() - 1 - i_replace_by_generation; --i)
+			for (int i = i_number_of_chromosomes - 1; i > i_number_of_chromosomes - 1 - i_replace_by_generation; --i)
 			{
 				if (c_random->bChance(3))
 				{
@@ -72,12 +76,12 @@ void CAlgorithm::vStart()
 				}
 				else if (c_random->bChance(3))
 				{
-					auto i_index = c_random->iNextInt(v_chromosomes.size() - 1 - i_replace_by_generation);
+					int i_index = c_random->iNextInt(i_number_of_chromosomes - 1 - i_replace_by_generation);
 					v_chromosomes[i] = new COrganism(*v_chromosomes.at(i_index));
 				}
 				else
 				{
-					auto i_index = c_random->iNextInt(v_chromosomes.size() - 1 - i_replace_by_generation);
+					int i_index = c_random->iNextInt(i_number_of_chromosomes - 1 - i_replace_by_generation);
 					v_chromosomes[i] = pc_best->pcMakeCrossover(*v_chromosomes.at(i_index));
 				}
 			}

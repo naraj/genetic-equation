@@ -26,6 +26,6 @@ public:
 	CRandom* pcGetRandom();
 private:
 	CMathOperator* pcGetRandomOperator() const;
-	void vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes) const;
+	void vTraverseDNA(CNode* current_node, std::vector<CMathOperator*>& nodes) const;
 };
 

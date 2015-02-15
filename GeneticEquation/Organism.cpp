@@ -77,6 +77,7 @@ COrganism* COrganism::pcMakeCrossover(const COrganism& cFather) const
 	auto c_father_dna = cFather.pcGetRandomOperator()->clone();
 	auto c_mother_dna = c_child->pcGetRandomOperator();
 	*c_mother_dna = *c_father_dna;
+	delete c_father_dna;
 	c_mother_dna->setPcOrganism(c_child);
 	return c_child;
 }
@@ -98,20 +99,20 @@ CRandom* COrganism::pcGetRandom()
 
 CMathOperator* COrganism::pcGetRandomOperator() const
 {
-	std::vector<CMathOperator*> nodes;
-	vTraverseDNA(*cRoot, nodes);
+	std::vector<CMathOperator*> nodes = {};
+	vTraverseDNA(cRoot, nodes);
 
 	return nodes[this->cRandom->iNextInt(nodes.size() - 1)];
 }
 
-void COrganism::vTraverseDNA(CNode& current_node, std::vector<CMathOperator*>& nodes) const
+void COrganism::vTraverseDNA(CNode* current_node, std::vector<CMathOperator*>& nodes) const
 {
-	if (auto cOp = dynamic_cast<CMathOperator*>(&current_node))
+	if (CMathOperator* cOp = dynamic_cast<CMathOperator*>(current_node))
 	{
 		nodes.push_back(cOp);
 
-		vTraverseDNA(*cOp->pcGetLeft(), nodes);
-		vTraverseDNA(*cOp->pcGetRight(), nodes);
+		vTraverseDNA(cOp->pcGetLeft(), nodes);
+		vTraverseDNA(cOp->pcGetRight(), nodes);
 
 	}
 }

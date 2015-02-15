@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstrEngine.h"
 #include <map>
+#include <string>
 
 class CEngine : public CAbstrEngine
 {
@@ -32,9 +33,8 @@ inline void CEngine::vSetVariable(const std::string& s_name, double d_value)
 
 inline void CEngine::vSetMultipleVariables(const std::vector<double>& v_args)
 {
-	std::string names = "abcdefghijklmnopqrstuvwxyz";
 	for (size_t i = 0; i < v_args.size(); i++)
 	{
-		dict[std::string(1, names[names.size() - v_args.size() + i])] = v_args[i];
+		dict["X" + std::to_string(i + 1)] = v_args[i];
 	}
 }
