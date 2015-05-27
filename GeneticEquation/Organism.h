@@ -22,8 +22,8 @@ public:
 	COrganism* pcMakeCrossover(const COrganism& cFather) const;
 	double dGetCurrError() const;
 
-	CNodeFactory* pcGetNodeFactory();
-	CRandom* pcGetRandom();
+	CNodeFactory* pcGetNodeFactory() const;
+	CRandom* pcGetRandom() const;
 private:
 	CMathOperator* pcGetRandomOperator() const;
 	void vTraverseDNA(CNode* current_node, std::vector<CMathOperator*>& nodes) const;

@@ -15,9 +15,7 @@ public:
 		c_engine.vSetMultipleVariables(v_args);
 	}
 
-	~CCase()
-	{
-	}
+
 	std::vector<double>& vGetArgs();
 	double dGetResult() const;
 	const CEngine& cGetEngine() const;

@@ -87,12 +87,12 @@ double COrganism::dGetCurrError() const
 	return d_current_error;
 }
 
-CNodeFactory* COrganism::pcGetNodeFactory()
+CNodeFactory* COrganism::pcGetNodeFactory() const
 {
 	return cFactory;
 }
 
-CRandom* COrganism::pcGetRandom()
+CRandom* COrganism::pcGetRandom() const
 {
 	return cRandom;
 }

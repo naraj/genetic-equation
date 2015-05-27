@@ -1,6 +1,5 @@
 #include "OrganismObserver.h"
 #include <iostream>
-#include "Organism.h"
 
 
 COrganismObserver::COrganismObserver()

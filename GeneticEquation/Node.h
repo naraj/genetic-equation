@@ -1,6 +1,8 @@
 #pragma once
+
 #include <string>
-#include "AbstrEngine.h"
+
+class CAbstrEngine;
 class COrganism;
 class CRandom;
 
@@ -12,9 +14,10 @@ public:
 	virtual ~CNode(){}
 	virtual CNode* create(COrganism*) const = 0;
 	virtual CNode* clone() const = 0;
-	virtual double dEval(const CAbstrEngine *) = 0;
+	virtual CNode* move_clone() = 0;
+	virtual double dEval(const CAbstrEngine *) const = 0;
 	virtual std::string sToString() const = 0;
-	virtual bool bIsStatic() = 0;
+	virtual bool bIsStatic() const = 0;
 	virtual void vMutate() = 0;
 	virtual void setPcOrganism(COrganism* c_organism);
 };
