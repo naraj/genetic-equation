@@ -9,6 +9,6 @@ public:
 	COrganismObserver();
 	~COrganismObserver();
 
-	void vUpdate(long long, const COrganism*);
+	void vUpdate(long long l_generation, std::string organism_string, double d_error);
 };
 

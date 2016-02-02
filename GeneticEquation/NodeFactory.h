@@ -3,10 +3,11 @@
 #include "Op.h"
 #include "MathVariable.h"
 #include "MathValue.h"
+#include <memory>
 
 class CNodeFactory	
 {
-	CRandom* c_random;
+	std::unique_ptr<CRandom> c_random;
 	std::vector<COp*> v_operators;
 	std::vector<CMathVariable*> v_vars;
 	std::vector<CMathValue*> v_values;
@@ -16,10 +17,10 @@ public:
 	CNodeFactory(int i_number_of_vars);
 	~CNodeFactory();
 
-	CMathVariable* cGetRandomVariable();
-	CMathValue* cGetRandomValue();
-	COp* cGetRandomOperator();
-	CNode* cGetRandomNode();
+	std::unique_ptr<CNode> cGetRandomVariable();
+	std::unique_ptr<CNode> cGetRandomValue();
+	std::unique_ptr<COp> cGetRandomOperator();
+	std::unique_ptr<CNode> cGetRandomNode();
 private:
 	void vPopulateOperators();
 	void vPopulateVariables();

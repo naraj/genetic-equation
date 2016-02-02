@@ -3,12 +3,13 @@
 #include "Node.h"
 #include "NodeFactory.h"
 
+
 class CMathOperator;
 
 class COrganism
 {
 	const CProblem& cProblem;
-	CNode* cRoot;
+	std::unique_ptr<CNode> cRoot;
 	CNodeFactory* cFactory;
 	CRandom* cRandom;
 	double d_current_error;

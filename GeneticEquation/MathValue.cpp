@@ -7,6 +7,7 @@ CMathValue::CMathValue(COrganism* c_organism, double d_value) : d_value(d_value)
 	this->c_organism = c_organism;
 }
 
+
 CMathValue::CMathValue(COrganism* c_organism)
 {
 	this->c_organism = c_organism;
@@ -14,21 +15,22 @@ CMathValue::CMathValue(COrganism* c_organism)
 }
 
 
-CMathValue::~CMathValue()
+std::unique_ptr<CNode> CMathValue::create(COrganism* c_organism) const
 {
+	return std::unique_ptr<CMathValue>( new CMathValue(c_organism));
 }
 
-CMathValue* CMathValue::create(COrganism* c_organism) const
+std::unique_ptr<CNode> CMathValue::clone() const
 {
-	return new CMathValue(c_organism);
+	return std::unique_ptr<CMathValue>(new CMathValue(*this));
 }
 
-CMathValue* CMathValue::clone() const
+std::unique_ptr<CNode> CMathValue::move_clone()
 {
-	return new CMathValue(*this);
+	return std::unique_ptr<CMathValue>(new CMathValue(std::move(*this)));
 }
 
-double CMathValue::dEval(const CAbstrEngine*)
+double CMathValue::dEval(const CAbstrEngine*) const
 {
 	return d_value;
 }
@@ -38,7 +40,7 @@ std::string CMathValue::sToString() const
 	return std::to_string(d_value);
 }
 
-bool CMathValue::bIsStatic()
+bool CMathValue::bIsStatic() const
 {
 	return true;
 }

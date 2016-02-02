@@ -2,13 +2,11 @@
 #include "MathValue.h"
 #include "Random.h"
 #include "Organism.h"
+#include <algorithm>
 
 CMathOperator::CMathOperator(COrganism* c_organism)
 {
 	this->c_organism = c_organism;
-	cLeft = nullptr;
-	cRight = nullptr;
-	cOperator = nullptr;
 	if (c_organism)
 	{
 		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
@@ -24,54 +22,46 @@ CMathOperator::CMathOperator(COrganism* c_organism)
 
 CMathOperator::CMathOperator(const CMathOperator& cOther)
 {
-	this->cLeft = cOther.cLeft->clone();
-	this->cRight = cOther.cRight->clone();
-	this->cOperator = cOther.cOperator->create();
-	this->c_organism = cOther.c_organism;
+	cLeft = cOther.cLeft->clone();
+	cRight = cOther.cRight->clone();
+	cOperator = std::unique_ptr<COp>(cOther.cOperator->create());
+	c_organism = cOther.c_organism;
+}
+
+CMathOperator::CMathOperator(CMathOperator&& cOther)
+{
+	cLeft = cOther.cLeft->move_clone();
+	cRight = cOther.cRight->move_clone();
+	// TODO
+	c_organism = std::move(cOther.c_organism);
 }
 
 CMathOperator& CMathOperator::operator=(const CMathOperator& cOther)
 {
 	if (this != &cOther)
 	{
-		if (cOther.cLeft)
-		{
-			delete this->cLeft;
-			this->cLeft = cOther.cLeft->clone();
-		}
-		if (cOther.cRight)
-		{
-			delete this->cRight;
-			this->cRight = cOther.cRight->clone();
-		}
-		if (cOther.cOperator)
-		{
-			delete this->cOperator;
-			this->cOperator = cOther.cOperator->create();
-		}
-
-		this->c_organism = cOther.c_organism;
-
+		cLeft = cOther.cLeft->clone();
+		cRight = cOther.cRight->clone();
+		cOperator = std::unique_ptr<COp>(cOther.cOperator->create());
+		c_organism = cOther.c_organism;
 	}
 
 	return *this;
 }
 
-CMathOperator* CMathOperator::create(COrganism* c_organism) const
+std::unique_ptr<CNode> CMathOperator::create(COrganism* c_organism) const
 {
-	return new CMathOperator(c_organism);
+	return std::make_unique<CMathOperator>(c_organism);
 }
 
-CMathOperator* CMathOperator::clone() const
+std::unique_ptr<CNode> CMathOperator::clone() const
 {
-	return new CMathOperator(*this);
+	return std::make_unique<CMathOperator>(*this);
 }
 
-CMathOperator::~CMathOperator()
+std::unique_ptr<CNode> CMathOperator::move_clone()
 {
-	delete cLeft;
-	delete cRight;
-	delete cOperator;
+	return std::make_unique<CMathOperator>(std::move(*this));
 }
 
 std::string CMathOperator::sToString() const
@@ -79,12 +69,12 @@ std::string CMathOperator::sToString() const
 	return cOperator->sToString(cLeft->sToString(), cRight->sToString());
 }
 
-double CMathOperator::dEval(const CAbstrEngine* cEngine)
+double CMathOperator::dEval(const CAbstrEngine* cEngine) const
 {
 	return cOperator->dEval(cLeft->dEval(cEngine), cRight->dEval(cEngine));
 }
 
-bool CMathOperator::bIsStatic()
+bool CMathOperator::bIsStatic() const
 {
 	return cLeft->bIsStatic() && cRight->bIsStatic();
 }
@@ -95,9 +85,7 @@ void CMathOperator::vMutate()
 	// swap
 	if (c_random->bChance(100))
 	{
-		CNode* c_temp = cLeft;
-		cLeft = cRight;
-		cRight = c_temp;
+		cLeft.swap(cRight);
 	}
 	// collapse
 	if (c_random->bChance(100))
@@ -108,78 +96,79 @@ void CMathOperator::vMutate()
 	// delete
 	if (c_random->bChance(15))
 	{
-		if (CMathOperator* c_left = dynamic_cast<CMathOperator*>(cLeft))
+		if (std::unique_ptr<CMathOperator, std::default_delete<CNode> > c_left = dynamic_unique_ptr_cast<CMathOperator, CNode>(std::move(cLeft->clone())))
 		{
-			CNode* c_grandchild = c_left->cLeft->clone();
-			delete cLeft;
-			cLeft = c_grandchild;
+			std::unique_ptr<CNode> c_grandchild = c_left->cLeft->clone();
+			
+			cLeft = std::move(c_grandchild);
+
 		}
 	}
 	// delete
 	if (c_random->bChance(15))
 	{
-		if (CMathOperator* c_left = dynamic_cast<CMathOperator*>(cLeft))
+		if (std::unique_ptr<CMathOperator, std::default_delete<CNode> > c_left = dynamic_unique_ptr_cast<CMathOperator, CNode>(std::move(cLeft->clone())))
 		{
-			CNode* c_grandchild = c_left->cRight->clone();
-			delete cLeft;
-			cLeft = c_grandchild;
+			std::unique_ptr<CNode> c_grandchild = c_left->cRight->clone();
+
+			cLeft = std::move(c_grandchild);
 		}
 	}
 	// delete
 	if (c_random->bChance(15))
 	{
-		if (CMathOperator* c_right = dynamic_cast<CMathOperator*>(cRight))
+		if (std::unique_ptr<CMathOperator, std::default_delete<CNode> > c_right = dynamic_unique_ptr_cast<CMathOperator, CNode>(std::move(cRight->clone())))
 		{
-			CNode* c_grandchild = c_right->cLeft->clone();
-			delete cRight;
-			cRight = c_grandchild;
+			std::unique_ptr<CNode> c_grandchild = c_right->cLeft->clone();
+
+			cRight = std::move(c_grandchild);
+
 		}
 	}
 	// delete
 	if (c_random->bChance(15))
 	{
-		if (CMathOperator* c_right = dynamic_cast<CMathOperator*>(cRight))
+		if (std::unique_ptr<CMathOperator, std::default_delete<CNode> > c_right = dynamic_unique_ptr_cast<CMathOperator, CNode>(std::move(cRight->clone())))
 		{
-			CNode* c_grandchild = c_right->cRight->clone();
-			delete cRight;
-			cRight = c_grandchild;
+			std::unique_ptr<CNode> c_grandchild = c_right->cRight->clone();
+
+			cRight = std::move(c_grandchild);
+
 		}
 	}
 
 	// add
 	if (c_random->bChance(100))
 	{
-		CMathOperator* new_op = new CMathOperator(this->c_organism);
-		new_op->setLeft(this->cLeft);
-		cLeft = new_op;
+		std::unique_ptr<CMathOperator> new_op(new CMathOperator(this->c_organism));
+		new_op->setLeft(std::move(cLeft));
+		cLeft = std::move(new_op);
 	}
 
 	// add
 	if (c_random->bChance(100))
 	{
-		CMathOperator* new_op = new CMathOperator(this->c_organism);
-		new_op->setRight(this->cRight);
-		cRight = new_op;
+		std::unique_ptr<CMathOperator> new_op(new CMathOperator(this->c_organism));
+		new_op->setLeft(std::move(cRight));
+		cRight = std::move(new_op);
 	}
 
 	// replace
 	if (c_random->bChance(30))
 	{
 		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
-		CNode* new_node = p_c_node_factory->cGetRandomNode();
+		std::unique_ptr<CNode> new_node = p_c_node_factory->cGetRandomNode();
 		new_node->setPcOrganism(this->c_organism);
-		delete cLeft;
-		cLeft = new_node;
+		cLeft = std::move(new_node);
 	}
 
 	// replace
 	if (c_random->bChance(30))
 	{
 		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
-		CNode* new_node = p_c_node_factory->cGetRandomNode();
+		std::unique_ptr<CNode> new_node = p_c_node_factory->cGetRandomNode();
 		new_node->setPcOrganism(this->c_organism);
-		delete cRight;
-		cRight = new_node;
+		cRight = std::move(new_node);
 	}
 	cLeft->setPcOrganism(this->c_organism);
 	cLeft->vMutate();
@@ -189,59 +178,53 @@ void CMathOperator::vMutate()
 	if (c_random->bChance(50))
 	{
 		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
-		COp* new_op = p_c_node_factory->cGetRandomOperator();
-		delete cOperator;
-		this->cOperator = new_op;
+		std::unique_ptr<COp> new_op = p_c_node_factory->cGetRandomOperator();
+		cOperator = std::move(new_op);
 	}
 
 }
 
 void CMathOperator::vCollapse()
 {
-	if (CMathOperator* cOp = dynamic_cast<CMathOperator*> (cLeft))
+	if (std::unique_ptr<CMathOperator, std::default_delete<CNode> > c_op = dynamic_unique_ptr_cast<CMathOperator, CNode>(std::move(cLeft->clone())))
 	{
-		cOp->vCollapse();
+		c_op->vCollapse();
 	}
-	if (CMathOperator* cOp = dynamic_cast<CMathOperator*> (cRight))
+	if (std::unique_ptr<CMathOperator, std::default_delete<CNode> > c_op = dynamic_unique_ptr_cast<CMathOperator, CNode>(std::move(cRight->clone())))
 	{
-		cOp->vCollapse();
+		c_op->vCollapse();
 	}
 	if (cLeft->bIsStatic())
 	{
 		double d_left = cLeft->dEval(nullptr);
-		CMathValue* cVal = new CMathValue(this->c_organism, d_left);
-		delete cLeft;
-		cLeft = cVal;
+		cLeft = std::make_unique<CMathValue>(this->c_organism, d_left);
+		
 	}
 	if (cRight->bIsStatic())
 	{
 		double d_right = cRight->dEval(nullptr);
-		CMathValue* cVal = new CMathValue(this->c_organism, d_right);
-		delete cRight;
-		cRight = cVal;
+		cLeft = std::make_unique<CMathValue>(this->c_organism, d_right);
 	}
 }
 
-CNode* CMathOperator::pcGetLeft()
+CNode* CMathOperator::pcGetLeft() const
 {
-	return cLeft;
+	return cLeft.get();
 }
 
-CNode* CMathOperator::pcGetRight()
+CNode* CMathOperator::pcGetRight() const
 {
-	return cRight;
+	return cRight.get();
 }
 
-void CMathOperator::setLeft(CNode* cLeft)
+void CMathOperator::setLeft(std::unique_ptr<CNode> cLeft)
 {
-	delete this->cLeft;
-	this->cLeft = cLeft;
+	this->cLeft = std::move(cLeft);
 }
 
-void CMathOperator::setRight(CNode* cRight)
+void CMathOperator::setRight(std::unique_ptr<CNode> cRight)
 {
-	delete this->cRight;
-	this->cRight = cRight;
+	this->cRight = std::move(cRight);
 }
 
 void CMathOperator::setPcOrganism(COrganism* c_organism)

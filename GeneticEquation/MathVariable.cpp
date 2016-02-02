@@ -8,26 +8,23 @@ CMathVariable::CMathVariable(COrganism* c_organism, std::string s_name) : s_name
 	this->c_organism = c_organism;
 }
 
-CMathVariable::CMathVariable(const CMathVariable& cOther)
+
+std::unique_ptr<CNode> CMathVariable::create(COrganism* c_organism) const
 {
-	this->s_name = cOther.s_name;
+	return std::unique_ptr<CNode>(new CMathVariable(c_organism, ""));
 }
 
-CMathVariable* CMathVariable::create(COrganism* c_organism) const
+std::unique_ptr<CNode> CMathVariable::clone() const
 {
-	return new CMathVariable(c_organism, "");
+	return std::unique_ptr<CNode>(new CMathVariable(*this));
 }
 
-CMathVariable* CMathVariable::clone() const
+std::unique_ptr<CNode> CMathVariable::move_clone()
 {
-	return new CMathVariable(*this);
+	return std::unique_ptr<CNode>(new CMathVariable(std::move(*this)));
 }
 
-CMathVariable::~CMathVariable()
-{
-}
-
-double CMathVariable::dEval(const CAbstrEngine* cEngine)
+double CMathVariable::dEval(const CAbstrEngine* cEngine) const
 {
 	return cEngine->dGetVariable(s_name);
 }
@@ -37,7 +34,7 @@ std::string CMathVariable::sToString() const
 	return s_name;
 }
 
-bool CMathVariable::bIsStatic()
+bool CMathVariable::bIsStatic() const
 {
 	return false;
 }
@@ -48,8 +45,10 @@ void CMathVariable::vMutate()
 	if (p_c_random->bChance(20))
 	{
 		CNodeFactory* p_c_node_factory = this->c_organism->pcGetNodeFactory();
-		CMathVariable* p_c_temp = p_c_node_factory->cGetRandomVariable();
-		this->s_name = p_c_temp->s_name;
-		delete p_c_temp;
+		std::unique_ptr<CNode> cnode = p_c_node_factory->cGetRandomVariable();
+		if (std::unique_ptr<CMathVariable, std::default_delete<CNode> > p_c_temp = static_unique_ptr_cast<CMathVariable, CNode>(std::move(cnode)))
+		{
+			this->s_name = p_c_temp->s_name;
+		}
 	}	
 }

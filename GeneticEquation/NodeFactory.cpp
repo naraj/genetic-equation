@@ -7,7 +7,7 @@
 
 CNodeFactory::CNodeFactory(int i_number_of_vars) : i_number_of_vars(i_number_of_vars)
 {
-	c_random = new CRandom();
+	c_random = std::make_unique<CRandom>();
 	v_values = {};
 	v_vars = {};
 	v_operators = {};
@@ -20,7 +20,6 @@ CNodeFactory::CNodeFactory(int i_number_of_vars) : i_number_of_vars(i_number_of_
 
 CNodeFactory::~CNodeFactory()
 {
-	delete c_random;
 	for (size_t i = 0; i < v_nodes.size(); i++)
 		delete v_nodes[i];
 	for (size_t i = 0; i < v_operators.size(); i++)
@@ -31,22 +30,22 @@ CNodeFactory::~CNodeFactory()
 		delete v_values[i];
 }
 
-CMathVariable* CNodeFactory::cGetRandomVariable()
+std::unique_ptr<CNode> CNodeFactory::cGetRandomVariable()
 {
 	return v_vars[c_random->iNextInt(v_vars.size() - 1)]->clone();
 }
 
-CMathValue* CNodeFactory::cGetRandomValue()
+std::unique_ptr<CNode> CNodeFactory::cGetRandomValue()
 {
 	return v_values.front()->clone();
 }
 
-COp* CNodeFactory::cGetRandomOperator()
+std::unique_ptr<COp> CNodeFactory::cGetRandomOperator()
 {
-	return v_operators[c_random->iNextInt(v_operators.size() - 1)]->create();
+	return std::unique_ptr<COp>(v_operators[c_random->iNextInt(v_operators.size() - 1)]->create());
 }
 
-CNode* CNodeFactory::cGetRandomNode()
+std::unique_ptr<CNode> CNodeFactory::cGetRandomNode()
 {
 	return v_nodes[c_random->iNextInt(v_nodes.size() - 1)]->clone();
 }

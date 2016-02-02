@@ -7,7 +7,7 @@ COrganism::COrganism(const CProblem& cProblem) : cProblem(cProblem)
 {
 	cFactory = new CNodeFactory(cProblem.iGetNumberOfArgs());
 	cRandom = new CRandom();
-	cRoot = new CMathOperator(this);
+	cRoot = std::unique_ptr<CNode>(new CMathOperator(this));
 	d_current_error = std::numeric_limits<double>::max();
 }
 
@@ -22,7 +22,6 @@ COrganism::COrganism(const COrganism& cOther) : cProblem(cOther.cProblem)
 
 COrganism::~COrganism()
 {
-	delete cRoot;
 	delete cFactory;
 	delete cRandom;
 }
@@ -34,7 +33,7 @@ std::string COrganism::sToString() const
 
 void COrganism::vCollapse()
 {
-	if (auto c_math_operator = dynamic_cast<CMathOperator*>(cRoot))
+	if (CMathOperator* c_math_operator = dynamic_cast<CMathOperator*>(cRoot.get()))
 	{
 		c_math_operator->vCollapse();
 	}
@@ -42,7 +41,7 @@ void COrganism::vCollapse()
 
 void COrganism::vTick()
 {
-	CNode* new_root = cRoot->clone();
+	std::unique_ptr<CNode> new_root = cRoot->clone();
 	new_root->vMutate();
 
 
@@ -60,22 +59,21 @@ void COrganism::vTick()
 
 	if (total_new_error < d_current_error)
 	{
-		delete cRoot;
-		cRoot = new_root;
+		cRoot = std::move(new_root);
 		d_current_error = total_new_error;
 	}
 	else
 	{
-		delete new_root;
+		new_root.release();
 	}
 
 }
 
 COrganism* COrganism::pcMakeCrossover(const COrganism& cFather) const
 {
-	auto c_child = new COrganism(*this);
-	auto c_father_dna = cFather.pcGetRandomOperator()->clone();
-	auto c_mother_dna = c_child->pcGetRandomOperator();
+	COrganism* c_child = new COrganism(*this);
+	CMathOperator* c_father_dna = new CMathOperator(*cFather.pcGetRandomOperator());
+	CMathOperator* c_mother_dna = c_child->pcGetRandomOperator();
 	*c_mother_dna = *c_father_dna;
 	delete c_father_dna;
 	c_mother_dna->setPcOrganism(c_child);
@@ -100,7 +98,7 @@ CRandom* COrganism::pcGetRandom() const
 CMathOperator* COrganism::pcGetRandomOperator() const
 {
 	std::vector<CMathOperator*> nodes = {};
-	vTraverseDNA(cRoot, nodes);
+	vTraverseDNA(cRoot.get(), nodes);
 
 	return nodes[this->cRandom->iNextInt(nodes.size() - 1)];
 }
